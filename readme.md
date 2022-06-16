@@ -1,4 +1,4 @@
-# full cicle prototype
+# quick-start-presentation 
 
 Sistema básico que inclui autenticação de usuário
 
