@@ -33,7 +33,7 @@ dotnet ef database update
 
 ```
 
-- [2] Desativar confirmação de e-mail para facilitar o login
+- [2] Desativar confirmação de e-mail no program.cs para facilitar o login 
 
 ```csharp
 
