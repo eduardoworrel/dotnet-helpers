@@ -18,8 +18,8 @@ jobs:
       with:
         dotnet-version: 6.x.x
     - name: Restore dependencies
-      run: dotnet restore /Presentation/.
+      run: dotnet restore Presentation/Presentation.csproj
     - name: Build
-      run: dotnet build /Presentation/. --no-restore
+      run: dotnet build Presentation/Presentation.csproj --no-restore
     - name: Test
-      run: dotnet test /Presentation/. --no-build --verbosity normal
+      run: dotnet test Presentation/Presentation.csproj --no-build --verbosity normal
