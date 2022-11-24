@@ -2,8 +2,6 @@
 
 Sistema básico que inclui autenticação de usuário
 
-Este projeto é parte do curso que pretendo lançar: **full cicle prototype, years in minutes**
-
 ## get started
 
 ```ps
