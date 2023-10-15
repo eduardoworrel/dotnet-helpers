@@ -51,35 +51,36 @@ public class CustomRabbitMQClient
         Action<string> callback
         )
     {
-        using(var connection = factory.CreateConnection())
-        using(var channel = connection.CreateModel())
-        {
-            channel.QueueDeclare(queue: queue,
-                                    durable: false,
-                                    exclusive: false,
-                                    autoDelete: false,
-                                    arguments: null);
+        var connection = factory.CreateConnection();
+        var channel = connection.CreateModel();
 
-            var consumer = new EventingBasicConsumer(channel);
-            
-            consumer.Received += (model, ea) =>
-            {
-                var body = ea.Body.ToArray();
-                var message = Encoding.UTF8.GetString(body);
-
-                callback(message);
-            };
-
-            consumer.Shutdown += (model, ea) =>
-            {
-                channel.Close();
-            };
-            await Task.Run(()=>{
         
-                channel.BasicConsume(queue: queue,
-                                    autoAck: true,
-                                    consumer: consumer);
-            });
-        }
+        channel.QueueDeclare(queue: queue,
+                                durable: false,
+                                exclusive: false,
+                                autoDelete: false,
+                                arguments: null);
+
+        var consumer = new EventingBasicConsumer(channel);
+        
+        consumer.Received += (model, ea) =>
+        {
+            var body = ea.Body.ToArray();
+            var message = Encoding.UTF8.GetString(body);
+
+            callback(message);
+        };
+
+        consumer.Shutdown += (model, ea) =>
+        {
+            channel.Close();
+        };
+        await Task.Run(()=>{
+    
+            channel.BasicConsume(queue: queue,
+                                autoAck: true,
+                                consumer: consumer);
+        });
+    
     }
 }

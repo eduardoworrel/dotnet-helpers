@@ -22,10 +22,5 @@ public class Worker : BackgroundService
         await _client.Consume("worker", (message)=>{ 
             _logger.LogInformation($" [x] Received {message}");
         });
-        
-        while(!stoppingToken.IsCancellationRequested)
-        {
-            await Task.Delay(3000, stoppingToken);
-        }
     }
 }
